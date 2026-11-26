@@ -247,7 +247,14 @@ async function press(k){
     code=""; drawDots();
   }
 }
-function logout(){ token=null; LS.del("ecom_token"); $("#pin").classList.remove("hide"); }
+/* pas de code demandé (décision de Daniel 26/11/2026) : connexion automatique */
+const AUTO_PIN="7391";
+let autoTry=0;
+async function autoLogin(){
+  try{ token=await rpc("ecom_login",{p_pin:AUTO_PIN}); LS.set("ecom_token",token); $("#pin").classList.add("hide"); load(); }
+  catch(e){ $("#pin").classList.remove("hide"); $("#pinErr").textContent=e.message; }
+}
+function logout(){ token=null; LS.del("ecom_token"); if(autoTry++<2) autoLogin(); else $("#pin").classList.remove("hide"); }
 
 /* ---------- liste ---------- */
 document.querySelectorAll("#seg button").forEach(b=>b.onclick=()=>{owner=b.dataset.o;LS.set("ecom_owner",owner);paintSeg();items=[];render();load()});
@@ -474,7 +481,7 @@ async function save(kind){
 
 /* ---------- démarrage ---------- */
 paintSeg(); render();
-if(token){ $("#pin").classList.add("hide"); load(); }
+if(token){ $("#pin").classList.add("hide"); load(); } else autoLogin();
 document.addEventListener("visibilitychange",()=>{ if(!document.hidden) load() });
 }
 </script>
