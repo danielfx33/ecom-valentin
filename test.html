@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="theme-color" content="#ffffff">
+<title>Ecom Valentin</title>
+<style>
+:root{--bg:#fff;--s1:#f7f7f5;--s2:#efefec;--bd:#e6e6e3;--txt:#2f3437;--mut:#787774;--dan:#6d5dfc;--val:#f07b1d;--g:#0f9d58;--y:#e0a800;--r:#e03e3e}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font:15px/1.45 -apple-system,BlinkMacSystemFont,"Segoe UI",Inter,sans-serif;background:var(--bg);color:var(--txt);padding:env(safe-area-inset-top) 0 90px}
+button{font:inherit;border:0;background:none;color:inherit;cursor:pointer}
+a{color:inherit}
+.wrap{max-width:760px;margin:0 auto;padding:14px 18px}
+header{display:flex;align-items:center;gap:10px;padding:6px 0 14px}
+.sw{display:flex;background:var(--s1);border:1px solid var(--bd);border-radius:10px;padding:3px}
+.sw button{padding:6px 12px;border-radius:7px;font-weight:600;font-size:14px;color:var(--mut);display:flex;align-items:center;gap:6px}
+.sw button.on{background:#fff;color:var(--txt);box-shadow:0 1px 3px #0001}
+.dot{width:9px;height:9px;border-radius:50%}
+h1{font-size:30px;font-weight:700;margin:6px 0 2px}
+.sub{color:var(--mut);font-size:14px;margin-bottom:18px}
+.tabs{display:flex;gap:4px;border-bottom:1px solid var(--bd);margin-bottom:16px;overflow-x:auto}
+.tabs button{padding:9px 6px;font-size:14px;font-weight:600;color:var(--mut);border-bottom:2px solid transparent;white-space:nowrap}
+.tabs button.on{color:var(--txt);border-color:var(--txt)}
+.task{display:flex;align-items:center;gap:10px;padding:9px 6px;border-radius:6px}
+.task:hover{background:var(--s1)}
+.cb{width:20px;height:20px;border-radius:5px;border:2px solid var(--c);flex:none;display:grid;place-items:center;color:#fff;font-size:13px}
+.task.done .cb{background:var(--c)}
+.task.done span{text-decoration:line-through;color:var(--mut)}
+.task span{flex:1}
+.x{color:var(--mut);opacity:.5;font-size:18px;padding:0 4px}
+.add{display:flex;gap:8px;margin-top:8px}
+input,textarea{font:inherit;font-size:16px;border:1px solid var(--bd);border-radius:8px;padding:9px 11px;width:100%;background:#fff;color:var(--txt);outline:none}
+.btn{background:var(--txt);color:#fff;border-radius:8px;padding:9px 14px;font-weight:600;white-space:nowrap}
+.btn.l{background:var(--s1);color:var(--txt);border:1px solid var(--bd)}
+.prog{height:6px;background:var(--s2);border-radius:9px;margin:4px 0 12px;overflow:hidden}
+.prog i{display:block;height:100%;background:var(--c)}
+.drop{display:block;border:2px dashed var(--bd);border-radius:12px;padding:22px;text-align:center;color:var(--mut);cursor:pointer;margin-bottom:10px}
+.drop img{max-height:160px;max-width:100%;border-radius:8px;margin-top:8px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px;margin-top:16px}
+.pc{border:1px solid var(--bd);border-radius:12px;overflow:hidden;cursor:pointer;background:#fff}
+.pc img{width:100%;height:120px;object-fit:cover;background:var(--s1);display:block}
+.pc .in{padding:9px 10px}
+.pc b{display:block;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.badge{display:inline-block;font-size:12px;font-weight:700;padding:2px 8px;border-radius:20px;color:#fff;margin-top:4px}
+.ph{width:100%;height:120px;display:grid;place-items:center;background:var(--s1);font-size:34px}
+.lay{position:fixed;inset:0;background:#0006;display:none;z-index:10;overflow:auto}
+.lay.on{display:block}
+.sheet{background:#fff;max-width:760px;margin:30px auto;border-radius:16px;padding:20px 18px 30px;min-height:60vh}
+.score{display:flex;align-items:center;gap:16px;padding:16px;border-radius:14px;background:var(--s1);margin:12px 0}
+.ring{width:84px;height:84px;border-radius:50%;display:grid;place-items:center;flex:none}
+.ring div{width:66px;height:66px;border-radius:50%;background:var(--s1);display:grid;place-items:center;font-size:26px;font-weight:800}
+.sec{margin-top:20px}
+.sec h3{font-size:15px;margin-bottom:8px}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:8px}
+.cd{border:1px solid var(--bd);border-radius:10px;padding:10px;font-size:13.5px}
+.cd.best{border:2px solid var(--g);background:#0f9d5810}
+.cd b{font-size:14px}
+.cd .p{font-size:18px;font-weight:800;margin:2px 0}
+.cd a{color:var(--dan);font-weight:600;text-decoration:none}
+.kpi{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.kpi div{background:var(--s1);border-radius:10px;padding:10px;text-align:center;font-size:12px;color:var(--mut)}
+.kpi b{display:block;font-size:19px;color:var(--txt)}
+.row{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
+.wait{display:flex;gap:10px;align-items:center;padding:16px;background:var(--s1);border-radius:12px;margin-top:12px}
+.spin{width:18px;height:18px;border:3px solid var(--bd);border-top-color:var(--txt);border-radius:50%;animation:s 1s linear infinite}
+@keyframes s{to{transform:rotate(360deg)}}
+.toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%);background:var(--txt);color:#fff;padding:10px 16px;border-radius:10px;z-index:20}
+.empty{color:var(--mut);padding:20px 0;text-align:center}
+.vente{display:flex;gap:12px;align-items:center;border:1px solid var(--bd);border-radius:12px;padding:10px;margin-bottom:10px;cursor:pointer}
+.vente img,.vente .ph{width:64px;height:64px;border-radius:8px;object-fit:cover;flex:none;font-size:24px}
+.vente .in{flex:1;min-width:0}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="sw" id="sw">
+      <button data-o="daniel"><span class="dot" style="background:var(--dan)"></span>Daniel</button>
+      <button data-o="valentin"><span class="dot" style="background:var(--val)"></span>Valentin</button>
+    </div>
+  </header>
+  <h1>🛍️ Ecom Valentin</h1>
+  <div class="sub" id="hello"></div>
+  <div class="tabs" id="tabs">
+    <button data-t="todo">✅ To-do</button>
+    <button data-t="rech">🔎 Recherche de produits</button>
+    <button data-t="vente">💰 En vente</button>
+  </div>
+  <main id="main"></main>
+</div>
+<div class="lay" id="lay"><div class="sheet" id="sheet"></div></div>
+
+<script>
+{
+const SB="https://kfmfbsvvjjlrulgxxmkv.supabase.co", KEY="sb_publishable_XAfjdkxZW08KMXHmsFcxaA_HFGxzlvH", AUTO_PIN="7391";
+const LS={get:k=>{try{return localStorage.getItem(k)}catch(e){return null}},set:(k,v)=>{try{localStorage.setItem(k,v)}catch(e){}},del:k=>{try{localStorage.removeItem(k)}catch(e){}}};
+let token=LS.get("ecom_token"), who=LS.get("ecom_owner")==="valentin"?"valentin":"daniel", tab=LS.get("ecom_tab")||"todo", tasks=[], items=[], img=null, poll=null;
+const $=s=>document.querySelector(s);
+const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const url=u=>/^https?:\/\//.test(u||"")?esc(u):"";
+const toast=m=>{const d=document.createElement("div");d.className="toast";d.textContent=m;document.body.append(d);setTimeout(()=>d.remove(),2200)};
+const COL={daniel:"var(--dan)",valentin:"var(--val)"}, NAME={daniel:"Daniel",valentin:"Valentin"};
+const VERD={a_tester:["🚀 À tester","var(--g)"],a_creuser:["🤔 À creuser","var(--y)"],a_eviter:["⛔ À éviter","var(--r)"]};
+const eur=n=>n==null||n===""?"—":(+n).toLocaleString("fr-FR",{minimumFractionDigits:2,maximumFractionDigits:2})+" €";
+
+async function rpc(fn,body,retry=true){
+  const r=await fetch(`${SB}/rest/v1/rpc/${fn}`,{method:"POST",headers:{apikey:KEY,"Content-Type":"application/json"},body:JSON.stringify(body)});
+  const d=await r.json().catch(()=>null);
+  if(!r.ok){const m=(d&&d.message)||"Erreur réseau"; if(/Session/.test(m)&&retry){await login(); return rpc(fn,{...body,p_token:token},false);} throw new Error(m);}
+  return d;
+}
+async function login(){ token=await rpc("ecom_login",{p_pin:AUTO_PIN},false); LS.set("ecom_token",token); }
+async function load(){
+  try{ if(!token) await login();
+    [tasks,items]=await Promise.all([rpc("ecom_tasks_list",{p_token:token}),rpc("ecom_list",{p_token:token,p_owner:"all"})]);
+    render(); if(items.some(i=>i.analysis_status==="running")) startPoll();
+  }catch(e){ $("#main").innerHTML=`<div class="empty">⚠️ ${esc(e.message)}</div>`; }
+}
+function startPoll(){ if(poll) return; poll=setInterval(async()=>{ items=await rpc("ecom_list",{p_token:token,p_owner:"all"}).catch(()=>items); render(); if(openId) openItem(openId); if(!items.some(i=>i.analysis_status==="running")){clearInterval(poll);poll=null;} },8000); }
+
+/* ---------- en-tête ---------- */
+$("#sw").onclick=e=>{const b=e.target.closest("button"); if(b){who=b.dataset.o; LS.set("ecom_owner",who); render();}};
+$("#tabs").onclick=e=>{const b=e.target.closest("button"); if(b){tab=b.dataset.t; LS.set("ecom_tab",tab); render();}};
+function render(){
+  document.querySelectorAll("#sw button").forEach(b=>b.classList.toggle("on",b.dataset.o===who));
+  document.querySelectorAll("#tabs button").forEach(b=>b.classList.toggle("on",b.dataset.t===tab));
+  document.documentElement.style.setProperty("--c",COL[who]);
+  const mine=tasks.filter(t=>t.owner===who), left=mine.filter(t=>!t.done).length;
+  $("#hello").textContent=`Salut ${NAME[who]} 👋 · ${left} tâche${left>1?"s":""} à faire`;
+  if(tab==="todo") todo(); else if(tab==="rech") rech(); else vente();
+}
+
+/* ---------- to-do ---------- */
+function todo(){
+  const mine=tasks.filter(t=>t.owner===who).sort((a,b)=>a.done-b.done), done=mine.filter(t=>t.done).length, pct=mine.length?Math.round(done/mine.length*100):0;
+  $("#main").innerHTML=`<div style="font-size:13px;color:var(--mut)">${done}/${mine.length} faites · ${pct} %</div><div class="prog"><i style="width:${pct}%"></i></div>
+  ${mine.map(t=>`<div class="task ${t.done?"done":""}" data-id="${t.id}"><div class="cb">${t.done?"✓":""}</div><span>${esc(t.text)}</span><button class="x" data-del="${t.id}">×</button></div>`).join("")||`<div class="empty">Aucune tâche 🎉</div>`}
+  <form class="add" id="addT"><input id="tt" placeholder="+ Ajouter une tâche pour ${NAME[who]}"><button class="btn">Ajouter</button></form>`;
+  document.querySelectorAll(".task").forEach(el=>el.onclick=async e=>{
+    const del=e.target.dataset.del;
+    if(del){ tasks=tasks.filter(t=>t.id!=del); render(); await rpc("ecom_task_delete",{p_token:token,p_id:+del}).catch(er=>toast(er.message)); return; }
+    const t=tasks.find(t=>t.id==el.dataset.id); t.done=!t.done; render();
+    await rpc("ecom_task_toggle",{p_token:token,p_id:t.id}).catch(er=>toast(er.message));
+  });
+  $("#addT").onsubmit=async e=>{e.preventDefault(); const v=$("#tt").value.trim(); if(!v) return;
+    try{ await rpc("ecom_task_add",{p_token:token,p_owner:who,p_text:v}); tasks=await rpc("ecom_tasks_list",{p_token:token}); render(); $("#tt").focus(); }catch(er){toast(er.message)}};
+}
+
+/* ---------- recherche ---------- */
+const prods=()=>items.filter(i=>i.kind==="produit"&&i.status!=="en_vente"&&i.status!=="abandonne");
+function card(i){
+  const j=i.analysis_json, v=j&&VERD[j.verdict];
+  const badge=i.analysis_status==="running"?`<span class="badge" style="background:var(--mut)">⏳ Analyse…</span>`:j?`<span class="badge" style="background:${v?v[1]:"var(--mut)"}">${j.score??"?"}/10 ${v?v[0]:""}</span>`:`<span class="badge" style="background:var(--s2);color:var(--mut)">Pas analysé</span>`;
+  return `<div class="pc" data-id="${i.id}">${i.image?`<img src="${esc(i.image)}" alt="">`:`<div class="ph">📦</div>`}<div class="in"><b>${esc(i.title||(j&&j.nom)||"Produit")}</b>${badge}</div></div>`;
+}
+function rech(){
+  $("#main").innerHTML=`<label class="drop" id="drop">📸 <b>Dépose une capture du produit</b><br><span style="font-size:13px">ou clique pour la choisir</span><input type="file" id="file" accept="image/*" hidden><div id="prev"></div></label>
+  <div class="add"><input id="pl" placeholder="Lien ou nom du produit (facultatif)"><button class="btn" id="go">Analyser ✨</button></div>
+  <div class="grid">${prods().map(card).join("")||`<div class="empty">Aucun produit pour l'instant</div>`}</div>`;
+  const drop=$("#drop");
+  $("#file").onchange=e=>e.target.files[0]&&setImg(e.target.files[0]);
+  drop.ondragover=e=>{e.preventDefault()}; drop.ondrop=e=>{e.preventDefault(); const f=e.dataTransfer.files[0]; f&&setImg(f)};
+  if(img) $("#prev").innerHTML=`<img src="${img}">`;
+  $("#go").onclick=addProd;
+  document.querySelectorAll(".pc").forEach(c=>c.onclick=()=>openItem(c.dataset.id));
+}
+document.addEventListener("paste",e=>{ if(tab!=="rech") return; const f=[...(e.clipboardData?.files||[])][0]; if(f&&f.type.startsWith("image")) setImg(f); });
+function setImg(file){ const im=new Image(); im.onload=()=>{const m=1100,s=Math.min(1,m/Math.max(im.width,im.height)),c=document.createElement("canvas"); c.width=im.width*s|0; c.height=im.height*s|0; c.getContext("2d").drawImage(im,0,0,c.width,c.height); img=c.toDataURL("image/jpeg",.72); $("#prev")&&($("#prev").innerHTML=`<img src="${img}">`)}; im.src=URL.createObjectURL(file); }
+async function addProd(){
+  const v=$("#pl").value.trim(); if(!img&&!v) return toast("Ajoute une capture ou un lien");
+  const p={owner:who,kind:"produit",status:"a_tester",image:img,title:/^https?:/.test(v)?"":v,url:/^https?:/.test(v)?v:""};
+  try{ const id=await rpc("ecom_add",{p_token:token,p}); img=null; await load(); analyze(id); openItem(id); }catch(e){toast(e.message)}
+}
+async function analyze(id){
+  const it=items.find(i=>i.id===id); if(it){it.analysis_status="running"; render();}
+  startPoll();
+  fetch(`${SB}/functions/v1/ecom-analyze`,{method:"POST",headers:{apikey:KEY,"Content-Type":"application/json"},body:JSON.stringify({token,id})})
+   .then(()=>load()).catch(()=>{});
+}
+
+/* ---------- fiche produit ---------- */
+let openId=null;
+$("#lay").onclick=e=>{ if(e.target.id==="lay") closeItem(); };
+function closeItem(){ openId=null; $("#lay").classList.remove("on"); }
+function openItem(id){
+  const i=items.find(x=>x.id===id); if(!i) return closeItem(); openId=id;
+  const j=i.analysis_json, v=j&&VERD[j.verdict], sc=j?.score??0, isBest=f=>j.meilleur&&(f.site===j.meilleur||String(j.meilleur).startsWith(f.site))&&j.fournisseurs.find(g=>g.site===j.meilleur||String(j.meilleur).startsWith(g.site))===f, col=v?v[1]:"var(--mut)";
+  let h=`<div style="display:flex;justify-content:space-between;align-items:center"><button class="btn l" id="cl">← Retour</button><span style="color:var(--mut);font-size:13px">ajouté par ${NAME[i.owner]||""}</span></div>
+  <h1 style="font-size:24px">${esc(i.title||j?.nom||"Produit")}</h1>
+  ${i.image?`<img src="${esc(i.image)}" style="max-height:200px;max-width:100%;border-radius:12px">`:""}`;
+  if(i.analysis_status==="running") h+=`<div class="wait"><div class="spin"></div>Analyse en cours… (1 à 3 min, tu peux fermer)</div>`;
+  else if(j){
+    h+=`<div class="score"><div class="ring" style="background:conic-gradient(${col} ${sc*36}deg,var(--s2) 0)"><div>${sc}</div></div>
+      <div><div class="badge" style="background:${col};font-size:14px">${v?v[0]:esc(j.verdict)}</div>${j.potentiel?` <span class="badge" style="background:var(--txt);font-size:13px">Potentiel ${esc(j.potentiel)}</span>`:""}<div style="margin-top:6px">${esc(j.pourquoi)}</div></div></div>
+    ${j.marche?`<div class="kpi" style="grid-template-columns:1fr 1fr;margin-bottom:8px"><div style="text-align:left">🇫🇷 France${j.marche.meilleur==="FR"?" 🏆":""}<b style="font-size:13.5px;font-weight:500">${esc(j.marche.fr||"—")}</b></div><div style="text-align:left">🇺🇸 US${j.marche.meilleur==="US"?" 🏆":""}<b style="font-size:13.5px;font-weight:500">${esc(j.marche.us||"—")}</b></div></div>`:""}
+    <div class="kpi"><div>Prix conseillé<b>${eur(j.prix_vente_conseille)}</b></div><div>Coût de revient<b>${eur(j.cout_revient)}</b></div><div>Marge<b style="color:var(--g)">${eur(j.marge)}</b></div></div>`;
+    if(j.fournisseurs?.length) h+=`<div class="sec"><h3>🏭 Fournisseurs</h3><div class="cards">${j.fournisseurs.map(f=>`<div class="cd ${isBest(f)?"best":""}">${isBest(f)?"🏆 Meilleur · ":""}<b>${esc(f.site)}</b><div class="p">${eur(f.prix)}</div>🚚 ${esc(f.delai||"—")} · ⭐ ${esc(f.avis||"—")}<br>${esc(f.commentaire||"")}${url(f.url)?`<br><a href="${url(f.url)}" target="_blank" rel="noopener">Voir →</a>`:""}</div>`).join("")}</div></div>`;
+    h+=j.videos_virales?.length?""+`<div class="sec"><h3>🔥 Vidéos virales des concurrents</h3><div class="cards">${j.videos_virales.map(x=>`<div class="cd"><b>${esc(x.compte)}</b><div class="p">👁 ${esc(x.vues||"—")}</div>${esc(x.pourquoi_ca_marche||"")}<br><i>À copier : ${esc(x.a_copier||"")}</i>${url(x.url)?`<br><a href="${url(x.url)}" target="_blank" rel="noopener">▶ Voir la vidéo</a>`:""}</div>`).join("")}</div></div>`:`<div class="sec"><h3>🔥 Vidéos virales des concurrents</h3><div class="cd" style="color:var(--mut)">Aucune vidéo à plus de 100 000 vues trouvée pour ce produit.</div></div>`;
+    if(j.concurrents?.length) h+=`<div class="sec"><h3>⚔️ Concurrents</h3><div class="cards">${j.concurrents.map(c=>`<div class="cd"><b>${esc(c.nom)}</b> <span style="color:var(--mut)">${esc(c.pays||"")}</span><div class="p">${esc(c.prix||"—")}</div>${c.chiffre?`<div style="color:var(--g);font-weight:700">📈 ${esc(c.chiffre)}</div>`:""}${esc(c.ce_quils_font||"")}<br>${url(c.url)?`<a href="${url(c.url)}" target="_blank" rel="noopener">Site →</a> `:""}${url(c.tiktok)?`<a href="${url(c.tiktok)}" target="_blank" rel="noopener">TikTok →</a>`:""}</div>`).join("")}</div></div>`;
+    if(j.videos?.length) h+=`<div class="sec"><h3>🎬 Idées de vidéos</h3><div class="cards">${j.videos.map(x=>`<div class="cd"><b>${esc(x.titre)}</b><br>💬 « ${esc(x.accroche)} »<br>${esc(x.deroule)}</div>`).join("")}</div></div>`;
+    if(j.visuels?.length) h+=`<div class="sec"><h3>🖼️ Visuels à faire</h3>${j.visuels.map(x=>`<div class="task"><div class="cb" style="--c:var(--mut)"></div><span>${esc(x)}</span></div>`).join("")}</div>`;
+    if(j.risques?.length) h+=`<div class="sec"><h3>⚠️ Risques</h3>${j.risques.map(x=>`<div>• ${esc(x)}</div>`).join("")}</div>`;
+  } else if(i.analysis) h+=`<div class="wait" style="display:block;white-space:pre-wrap">${esc(i.analysis)}</div>`;
+  else h+=`<div class="wait">Pas encore analysé.</div>`;
+  h+=`<div class="row">${j?.prompt_boutique?`<button class="btn" id="cp">📋 Copier le prompt boutique</button>`:""}
+    <button class="btn l" id="re">✨ ${j||i.analysis?"Relancer l'analyse":"Analyser"}</button>
+    ${i.status==="en_vente"?`<button class="btn l" id="back">↩️ Retirer de la vente</button>`:`<button class="btn l" id="sell">💰 Passer en vente</button>`}
+    <button class="btn l" id="del" style="color:var(--r)">Supprimer</button></div>`;
+  $("#sheet").innerHTML=h; $("#lay").classList.add("on");
+  $("#cl").onclick=closeItem;
+  $("#cp")&&($("#cp").onclick=()=>navigator.clipboard.writeText(j.prompt_boutique).then(()=>toast("Prompt copié ✅"),()=>toast("Copie impossible")));
+  $("#re").onclick=()=>{analyze(id); openItem(id)};
+  const setSt=async st=>{ try{ await rpc("ecom_update",{p_token:token,p_id:id,p:{status:st}}); await load(); closeItem(); toast(st==="en_vente"?"Ajouté à « En vente » 💰":"Retiré de la vente"); }catch(e){toast(e.message)} };
+  $("#sell")&&($("#sell").onclick=()=>setSt("en_vente"));
+  $("#back")&&($("#back").onclick=()=>setSt("a_tester"));
+  $("#del").onclick=async()=>{ if(!confirm("Supprimer ce produit ?")) return; await rpc("ecom_delete",{p_token:token,p_id:id}).catch(e=>toast(e.message)); closeItem(); load(); };
+}
+
+/* ---------- en vente ---------- */
+function vente(){
+  const L=items.filter(i=>i.status==="en_vente");
+  $("#main").innerHTML=L.map(i=>{const j=i.analysis_json||{}, buy=+i.buy_price||null, sell=+i.sell_price||j.prix_vente_conseille||null;
+    return `<div class="vente" data-id="${i.id}">${i.image?`<img src="${esc(i.image)}">`:`<div class="ph">📦</div>`}<div class="in"><b>${esc(i.title||j.nom||"Produit")}</b><div style="font-size:13px;color:var(--mut)">Achat ${eur(buy)} · Vente ${eur(sell)}${j.marge!=null?` · <b style="color:var(--g)">Marge ${eur(j.marge)}</b>`:""}</div>${url(i.supplier_url)?`<a href="${url(i.supplier_url)}" target="_blank" rel="noopener" style="font-size:13px;color:var(--dan)">Fournisseur →</a>`:""}</div></div>`}).join("")
+  ||`<div class="empty">Aucun produit en vente.<br>Ouvre un produit dans « Recherche » → « Passer en vente ».</div>`;
+  document.querySelectorAll(".vente").forEach(c=>c.onclick=e=>{ if(!e.target.closest("a")) openItem(c.dataset.id); });
+}
+
+render(); load();
+}
+</script>
+</body>
+</html>
