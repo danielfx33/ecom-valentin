@@ -137,11 +137,15 @@ function render(){
 function todo(){
   const mine=tasks.filter(t=>t.owner===who).sort((a,b)=>a.done-b.done), done=mine.filter(t=>t.done).length, pct=mine.length?Math.round(done/mine.length*100):0;
   $("#main").innerHTML=`<div style="font-size:13px;color:var(--mut)">${done}/${mine.length} faites · ${pct} %</div><div class="prog"><i style="width:${pct}%"></i></div>
-  ${mine.map(t=>`<div class="task ${t.done?"done":""}" data-id="${t.id}"><div class="cb">${t.done?"✓":""}</div><span>${esc(t.text)}</span><button class="x" data-del="${t.id}">×</button></div>`).join("")||`<div class="empty">Aucune tâche 🎉</div>`}
+  ${mine.map(t=>`<div class="task ${t.done?"done":""}" data-id="${t.id}"><div class="cb">${t.done?"✓":""}</div><span>${esc(t.text)}</span><button class="x" data-edit="${t.id}" title="Modifier">✏️</button><button class="x" data-del="${t.id}" title="Supprimer">×</button></div>`).join("")||`<div class="empty">Aucune tâche 🎉</div>`}
   <form class="add" id="addT"><input id="tt" placeholder="+ Ajouter une tâche pour ${NAME[who]}"><button class="btn">Ajouter</button></form>`;
   document.querySelectorAll(".task").forEach(el=>el.onclick=async e=>{
+    const ed=e.target.closest("[data-edit]")?.dataset.edit;
+    if(ed){ const t=tasks.find(t=>t.id==ed); const sp=el.querySelector("span"); sp.innerHTML=`<input value="${esc(t.text)}" style="padding:4px 8px">`; const inp=sp.querySelector("input"); inp.focus(); inp.onclick=ev=>ev.stopPropagation();
+      const save=async()=>{ const v=inp.value.trim(); if(v&&v!==t.text){ t.text=v; await rpc("ecom_task_edit",{p_token:token,p_id:t.id,p_text:v}).catch(er=>toast(er.message)); } render(); };
+      inp.onkeydown=ev=>{ if(ev.key==="Enter") save(); if(ev.key==="Escape") render(); }; inp.onblur=save; return; }
     const del=e.target.dataset.del;
-    if(del){ tasks=tasks.filter(t=>t.id!=del); render(); await rpc("ecom_task_delete",{p_token:token,p_id:+del}).catch(er=>toast(er.message)); return; }
+    if(del){ tasks=tasks.filter(t=>t.id!=del); render(); await rpc("ecom_task_delete",{p_token:token,p_id:del}).catch(er=>toast(er.message)); return; }
     const t=tasks.find(t=>t.id==el.dataset.id); t.done=!t.done; render();
     await rpc("ecom_task_toggle",{p_token:token,p_id:t.id}).catch(er=>toast(er.message));
   });
